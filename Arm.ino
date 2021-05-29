@@ -28,6 +28,11 @@ void loop() {
   }
 }
 
+void printValue(int posicao, String motor){
+  Serial.println(posicao);
+  Serial.println("----------------");
+}
+
 int lerMemoriaEeprom(){
   int leitura = EEPROM.read(endereco);
   Serial.print("Lendo numero da memoria EEPROM : ");
@@ -38,15 +43,12 @@ int lerMemoriaEeprom(){
 void controlaBraco(){
   if(bluetooth.available() >= 2){
   unsigned int posicaoBase = bluetooth.read();
-  Serial.println(posicaoBase);
   unsigned int posicaoBase2 = bluetooth.read();  
-  Serial.println(posicaoBase2);  
   unsigned int posicaoReal = (posicaoBase2 * 256)+ posicaoBase;
-  Serial.println(posicaoReal);
-  Serial.println("----------------");
 
   if (posicaoReal >= 1000 && posicaoReal <= 1180){
     int pBase = posicaoReal;
+    printValue(pBase, "Base");
     pBase = map(pBase, 1000, 1180, 0, 180);
     base.write(pBase);
     delay(10);
