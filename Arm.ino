@@ -15,6 +15,13 @@ void setup() {
   terceiro.attach(9); 
   punho.attach(10); 
   garra.attach(11); 
+
+  garra.write(88);
+  punho.write(180);
+  terceiro.write(180);
+  segundo.write(0);
+  primeiro.write(16);
+  base.write(79);
   
   Serial.begin(9600);
   bluetooth.begin(9600);
@@ -22,10 +29,17 @@ void setup() {
 
 void loop() {
   if (lerMemoriaEeprom == 1){
-      automacao();
+      Serial.println("Automação");
   }else{
       controlaBraco();
   }
+}
+
+void printValue(int posicao, String motor){
+  Serial.print(motor);
+  Serial.print(": ");
+  Serial.println(posicao);
+  Serial.println("----------------");
 }
 
 int lerMemoriaEeprom(){
@@ -38,15 +52,12 @@ int lerMemoriaEeprom(){
 void controlaBraco(){
   if(bluetooth.available() >= 2){
   unsigned int posicaoBase = bluetooth.read();
-  Serial.println(posicaoBase);
   unsigned int posicaoBase2 = bluetooth.read();  
-  Serial.println(posicaoBase2);  
   unsigned int posicaoReal = (posicaoBase2 * 256)+ posicaoBase;
-  Serial.println(posicaoReal);
-  Serial.println("----------------");
 
   if (posicaoReal >= 1000 && posicaoReal <= 1180){
     int pBase = posicaoReal;
+    printValue(pBase, "Base");
     pBase = map(pBase, 1000, 1180, 0, 180);
     base.write(pBase);
     delay(10);
@@ -103,8 +114,4 @@ void controlaBraco(){
     delay(2000);
     }
   }
-}
-
-void automacao(){
-    Serial.print("Automação");
 }
