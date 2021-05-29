@@ -23,12 +23,15 @@ void setup() {
 void loop() {
   if (lerMemoriaEeprom == 1){
       automacao();
+      Serial.println("Automação");
   }else{
       controlaBraco();
   }
 }
 
 void printValue(int posicao, String motor){
+  Serial.print(motor);
+  Serial.print(": ");
   Serial.println(posicao);
   Serial.println("----------------");
 }
