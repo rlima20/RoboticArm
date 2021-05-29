@@ -15,6 +15,13 @@ void setup() {
   terceiro.attach(9); 
   punho.attach(10); 
   garra.attach(11); 
+
+  garra.write(88);
+  punho.write(180);
+  terceiro.write(180);
+  segundo.write(0);
+  primeiro.write(16);
+  base.write(79);
   
   Serial.begin(9600);
   bluetooth.begin(9600);
@@ -22,7 +29,6 @@ void setup() {
 
 void loop() {
   if (lerMemoriaEeprom == 1){
-      automacao();
       Serial.println("Automação");
   }else{
       controlaBraco();
@@ -108,8 +114,4 @@ void controlaBraco(){
     delay(2000);
     }
   }
-}
-
-void automacao(){
-    Serial.print("Automação");
 }
