@@ -28,6 +28,31 @@ void setup() {
 }
 
 void loop() {
+  if(bluetooth.available() >= 2){
+
+    
+  unsigned int posicaoBase = bluetooth.read();
+  unsigned int posicaoBase2 = bluetooth.read();  
+  unsigned int posicaoReal = (posicaoBase2 * 256)+ posicaoBase;
+  
+    if (posicaoReal == 7000){
+    automation = 1;
+    Serial.print("Gravando numero na memoria EEPROM : ");
+    Serial.println(automation);
+    EEPROM.write(endereco, automation);
+    delay(2000);
+    }
+
+    if (posicaoReal == 8000){
+    automation = 0;
+    Serial.print("Gravando numero na memoria EEPROM : ");
+    Serial.println(automation);
+    EEPROM.write(endereco, automation);
+    delay(2000);
+    }
+  }
+
+  
   if (lerMemoriaEeprom() == 1){
       Serial.print("Lendo numero da memoria EEPROM : ");
       Serial.println(lerMemoriaEeprom());  
@@ -63,6 +88,7 @@ int lerMemoriaEeprom(){
 
 void controlaBraco(){
   if(bluetooth.available() >= 2){
+
   unsigned int posicaoBase = bluetooth.read();
   unsigned int posicaoBase2 = bluetooth.read();  
   unsigned int posicaoReal = (posicaoBase2 * 256)+ posicaoBase;
@@ -109,21 +135,5 @@ void controlaBraco(){
     garra.write(pGarra);
     delay(10);
   }
-
-    if (posicaoReal == 7000){
-    automation = 1;
-    Serial.print("Gravando numero na memoria EEPROM : ");
-    Serial.println(automation);
-    EEPROM.write(endereco, automation);
-    delay(2000);
-    }
-
-    if (posicaoReal == 8000){
-    automation = 0;
-    Serial.print("Gravando numero na memoria EEPROM : ");
-    Serial.println(automation);
-    EEPROM.write(endereco, automation);
-    delay(2000);
-    }
-  }
+ }
 }
