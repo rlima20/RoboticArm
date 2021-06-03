@@ -28,8 +28,22 @@ void setup() {
 }
 
 void loop() {
-  if (lerMemoriaEeprom == 1){
+  if (lerMemoriaEeprom() == 1){
+      Serial.print("Lendo numero da memoria EEPROM : ");
+      Serial.println(lerMemoriaEeprom());  
       Serial.println("Automação");
+       
+        for(int pos = 79; pos <= 180; pos++){
+          base.write(pos);
+          delay(15);
+        }
+        delay(500);
+        for(int pos = 180; pos >= 79; pos--){
+          base.write(pos);
+          delay(15);
+        }
+        delay(2000);
+        
   }else{
       controlaBraco();
   }
@@ -44,8 +58,6 @@ void printValue(int posicao, String motor){
 
 int lerMemoriaEeprom(){
   int leitura = EEPROM.read(endereco);
-  Serial.print("Lendo numero da memoria EEPROM : ");
-  Serial.println(leitura);
   return leitura;
 }
 
