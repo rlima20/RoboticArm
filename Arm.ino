@@ -21,7 +21,7 @@ void setup() {
   terceiro.write(180);
   segundo.write(0);
   primeiro.write(16);
-  base.write(79);
+  base.write(150);
   
   Serial.begin(9600);
   bluetooth.begin(9600);
@@ -61,42 +61,47 @@ void controlaBraco(){
     pBase = map(pBase, 1000, 1180, 0, 180);
     base.write(pBase);
     delay(10);
-  }
+    }
 
     if (posicaoReal >= 2000 && posicaoReal <= 2180){
     int pPrimeiro = posicaoReal;
+    printValue(pPrimeiro, "Primeiro");
     pPrimeiro = map(pPrimeiro, 2000, 2180, 0, 180);
     primeiro.write(pPrimeiro);
     delay(10);
-  }
+    }
 
     if (posicaoReal >= 3000 && posicaoReal <= 3180){
     int pSegundo = posicaoReal;
+    printValue(pSegundo, "Segundo");
     pSegundo = map(pSegundo, 3000, 3180, 0, 180);
     segundo.write(pSegundo);
     delay(10);
-  }
+    }
 
     if (posicaoReal >= 4000 && posicaoReal <= 4180){
     int pTerceiro = posicaoReal;
+    printValue(pTerceiro, "Terceiro");
     pTerceiro = map(pTerceiro, 4000, 4180, 0, 180);
     terceiro.write(pTerceiro);
     delay(10);
-  }
+    }
 
     if (posicaoReal >= 5000 && posicaoReal <= 5180){
     int pPunho = posicaoReal;
+    printValue(pPunho, "Punho");
     pPunho = map(pPunho, 5000, 5180, 0, 180);
     punho.write(pPunho);
     delay(10);
-  }
+    }
 
     if (posicaoReal >= 6000 && posicaoReal <= 6180){
     int pGarra = posicaoReal;
+    printValue(pGarra, "Garra");
     pGarra = map(pGarra, 6000, 6180, 0, 180);
     garra.write(pGarra);
     delay(10);
-  }
+   }
 
     if (posicaoReal == 7000){
     automation = 1;
