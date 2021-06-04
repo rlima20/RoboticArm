@@ -28,9 +28,7 @@ void setup() {
 }
 
 void loop() {
-  if (lerMemoriaEeprom == 1){
-      Serial.println("Automação");
-  }else{
+  if (lerMemoriaEeprom != 1){
       controlaBraco();
   }
 }
@@ -118,5 +116,66 @@ void controlaBraco(){
     EEPROM.write(endereco, automation);
     delay(2000);
     }
+
+    if (posicaoReal >= 11000){
+      printValue(posicaoReal, "Base");
+    }
   }
 }
+
+/*
+void fazAutomacao(){
+  if(bluetooth.available() >= 2){
+  unsigned int posicaoBase = bluetooth.read();
+  unsigned int posicaoBase2 = bluetooth.read();  
+  unsigned int posicaoReal = (posicaoBase2 * 256)+ posicaoBase;
+
+    if (posicaoReal >= 11000 && posicaoReal <= 11180){
+    int pBase = posicaoReal;
+    printValue(pBase, "Base");
+    pBase = map(pBase, 11000, 11180, 0, 180);
+    base.write(pBase);
+    delay(10);
+    }
+
+    if (posicaoReal >= 12000 && posicaoReal <= 12180){
+    int pPrimeiro = posicaoReal;
+    printValue(pPrimeiro, "Primeiro");
+    pPrimeiro = map(pPrimeiro, 12000, 12180, 0, 180);
+    primeiro.write(pPrimeiro);
+    delay(10);
+    }
+
+    if (posicaoReal >= 13000 && posicaoReal <= 13180){
+    int pSegundo = posicaoReal;
+    printValue(pSegundo, "Segundo");
+    pSegundo = map(pSegundo, 13000, 13180, 0, 180);
+    segundo.write(pSegundo);
+    delay(10);
+    }
+
+    if (posicaoReal >= 14000 && posicaoReal <= 14180){
+    int pTerceiro = posicaoReal;
+    printValue(pTerceiro, "Terceiro");
+    pTerceiro = map(pTerceiro, 14000, 14180, 0, 180);
+    terceiro.write(pTerceiro);
+    delay(10);
+    }
+
+    if (posicaoReal >= 15000 && posicaoReal <= 15180){
+    int pPunho = posicaoReal;
+    printValue(pPunho, "Punho");
+    pPunho = map(pPunho, 15000, 15180, 0, 180);
+    punho.write(pPunho);
+    delay(10);
+    }
+
+    if (posicaoReal >= 16000 && posicaoReal <= 16180){
+    int pGarra = posicaoReal;
+    printValue(pGarra, "Garra");
+    pGarra = map(pGarra, 16000, 16180, 0, 180);
+    garra.write(pGarra);
+    delay(10);
+   }
+  } 
+}*/
